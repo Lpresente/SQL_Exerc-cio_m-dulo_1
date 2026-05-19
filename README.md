@@ -3,25 +3,27 @@
 ### **1 Criação da tabela de clientes**
 
 ```sql
-CREATE EXTERNAL TABLE clientes(
-	id BIGINT,
-	idade BIGINT,
-	sexo STRING,
-	dependentes BIGINT,
-	escolaridade STRING,
-	tipo_cartao STRING,
-	limite_credito DOUBLE,
-	valor_transacoes_12m DOUBLE,
-	qtd_transacoes_12m BIGINT
+CREATE EXTERNAL TABLE clientes (
+    id INT,
+    idade INT,
+    sexo STRING,
+    dependentes INT,
+    escolaridade STRING,
+    estado_civil STRING,
+    salario_anual STRING,
+    tipo_cartao STRING,
+    qtd_produtos INT,
+    interacoes_12m INT,
+    meses_inativo_12m INT,
+    limite_credito DOUBLE,
+    valor_transacoes_12m DOUBLE,
+    qtd_transacoes_12m INT
 )
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-WITH SERDEPROPERTIES (
-	'separatorChar' = ',',
-	'quoteChar' = '"',
-	'escapeChar' = '\\'
-)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 LOCATION 's3://lucas-modulo-1-ebac-para-dados/'
+TBLPROPERTIES ("skip.header.line.count"="1");
 ```
 
 ### **2. Explorando os dados da tabela de clientes**
